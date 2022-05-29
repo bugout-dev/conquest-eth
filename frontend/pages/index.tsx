@@ -1,16 +1,19 @@
-import React from "react"
+import React, {useState} from "react"
 
 import { getData } from "../api/receiver"
 import Layout from "../components/Layout"
 import Map from "../components/Map"
 import Sidebar from "../components/Sidebar"
 import dataFile from "../data.json"
+import snapshotInfo from "../snapshotInfo.json"
 
-const Index = ({ data }) => {
+const Index = ({ data, snapshotInfo }) => {
+	const [activeLocation, setActiveLocation] = useState(null)
+	const [activeLocationSidebarRef, setActiveLocationSidebarRef] = useState(null)
 	return (
-		<Layout>
-			<Map data={data} />
-			<Sidebar data={data} />
+		<Layout snapshotInfo={snapshotInfo}>
+			<Map data={data} setActiveLocation={setActiveLocation} />
+			<Sidebar data={data} activeLocation={activeLocation} />
 		</Layout>
 	)
 }
@@ -21,6 +24,6 @@ export async function getStaticProps() {
 	const data = dataFile
 
 	return {
-		props: { data }
+		props: { data, snapshotInfo }
 	}
 }

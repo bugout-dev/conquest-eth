@@ -1,10 +1,15 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Head from "next/head"
 
 import styles from "../styles/Layout.module.css"
 
-const Layout = ({ children, title = "map" }) => {
-	useEffect(() => {}, [])
+const Layout = ({ children, title = "map", snapshotInfo }) => {
+	const [snapshotBlockNumber, setSnapshotBlockNumber] = useState(0)
+	useEffect(() => {
+		if (snapshotInfo && snapshotInfo.block_number) {
+			setSnapshotBlockNumber(snapshotInfo.block_number)
+		}
+	}, [snapshotInfo])
 
 	return (
 		<>
@@ -28,6 +33,9 @@ const Layout = ({ children, title = "map" }) => {
 							</li>
 							<li>
 								<a href="/">ABOUT</a>
+							</li>
+							<li>
+								<a href={`https://blockscout.com/xdai/mainnet/block/${snapshotBlockNumber}`} target="#">Block Number: {snapshotBlockNumber}</a>
 							</li>
 						</ul>
 					</nav>

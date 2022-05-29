@@ -30,7 +30,7 @@ export interface Event {
 }
 
 // Docs: https://docs.pmnd.rs/react-three-fiber
-const Map = ({ data }) => {
+const Map = ({ data, setActiveLocation }) => {
 	const cameraConfig: CameraConfig = {
 		posX: 0,
 		posY: 0,
@@ -67,6 +67,7 @@ const Map = ({ data }) => {
 					key={`map-${event.locX}-${event.locY}`}
 					windowWidth={window.innerWidth}
 					windowHeight={window.innerWidth}
+					setActiveLocation={setActiveLocation}
 				/>
 			)
 		})
