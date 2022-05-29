@@ -1,0 +1,21 @@
+.sidebar {
+	flex: 1;
+}
+
+.sidebar_title {
+	text-align: center;
+}
+
+.sidebar_data {
+	margin-top: 1em;
+}
+
+.sidebar_data > .sidebar_data_row {
+	margin: 0;
+	padding-top: 0.2em;
+	padding-left: 0.6em;
+}
+
+.sidebar_data > .sidebar_data_row > span + span {
+	padding-left: 0.4em;
+}

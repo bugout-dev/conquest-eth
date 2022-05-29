@@ -2,8 +2,9 @@ WITH on_location_events AS (
     SELECT
         label_data->'args'->>'location' as planet_location,
         label_data->>'name' as event_name,
-        label_data->'args' as event_data,
-        block_timestamp
+        label_data as label_data,
+        block_timestamp,
+        block_number
     FROM
         xdai_labels
     WHERE
@@ -14,8 +15,9 @@ fleet_sent_events AS (
     SELECT
         label_data->'args'->>'from' as planet_location,
         label_data->>'name' as event_name,
-        label_data->'args' as event_data,
-        block_timestamp
+        label_data as label_data,
+        block_timestamp,
+        block_number
     FROM
         xdai_labels
     WHERE
@@ -26,4 +28,4 @@ fleet_sent_events AS (
 all_events AS (
     SELECT * FROM on_location_events UNION SELECT * FROM fleet_sent_events ORDER BY block_timestamp DESC
 )
-SELECT DISTINCT ON(planet_location) planet_location, event_name, event_data, block_timestamp FROM all_events;
+SELECT DISTINCT ON(planet_location) planet_location, event_name, label_data, block_timestamp, block_number FROM all_events;

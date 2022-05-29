@@ -1,0 +1,56 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* Header */
+
+.header {
+	background-color: var(--background-color-button);
+}
+
+.site_nav {
+	display: flex;
+	padding: 0.5em;
+	list-style-type: none;
+	margin: 0 2em;
+}
+
+.site_nav > li + li {
+	margin-left: 1.5em;
+}
+
+.site_nav > .nav_right {
+	margin-left: auto;
+}
+
+.site_nav > li > a {
+	display: block;
+	padding: 0.5em 0.1em;
+	text-decoration: none;
+}
+
+/* Main */
+
+.main {
+	display: flex;
+	flex: 1;
+}
+
+.main > * + * {
+	margin-top: 0;
+	margin-left: 1.5em;
+}
+
+/* Footer */
+
+.footer {
+	text-align: center;
+	background-color: var(--background-color-button);
+}
+
+.footer > p {
+	margin: 0;
+	padding: 0.2em;
+}

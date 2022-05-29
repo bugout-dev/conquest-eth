@@ -1,0 +1,33 @@
+.popup {
+	width: 15em;
+	display: flex;
+}
+
+.line_slope {
+	padding: 0.6px;
+	background-color: white;
+	height: 47px;
+	transform: rotate(-45deg);
+	transform-origin: 0 0 0;
+}
+
+.popup_details {
+	margin-left: 2em;
+}
+
+.popup_details > .popup_details_header {
+	border-bottom: 1px solid white;
+	padding: 0.35em;
+}
+
+.popup_details > .popup_details_header > p {
+	margin: 0;
+}
+
+.popup_details > .popup_details_main {
+	padding: 0.35em;
+}
+
+.popup_details > .popup_details_main > p {
+	margin: 0;
+}

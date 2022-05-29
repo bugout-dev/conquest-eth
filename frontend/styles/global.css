@@ -1,0 +1,43 @@
+:root {
+	--text-color-dark: #171923;
+	--text-color-light: white;
+
+	--text-secondary: #a0aec0;
+
+	--primary-color: #4299e1;
+	--secondary-color: #c53030;
+
+	--background-color-dark: #1a202c;
+	--background-color-light: white;
+
+	--background-color-input: #edf2f7;
+	--background-color-input-hover: #2d3748;
+
+	--background-color-button: #2d3748;
+	--background-color-button-hover: var(--background-color-dark);
+
+	--font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	--box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+
+	box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	background-color: var(--background-color-dark);
+	color: var(--text-color-light);
+	font-family: var(--font-family);
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
