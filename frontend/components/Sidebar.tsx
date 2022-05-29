@@ -1,32 +1,31 @@
 import { useEffect, useState } from "react"
 
-import { parseEvents, fleetSizeColor } from "./events"
+import parseEvents, { eventTypeColor } from "./events"
 import styles from "../styles/Sidebar.module.css"
 
 const Sidebar = ({ data }) => {
 	const [dataList, setDataList] = useState([])
 
 	useEffect(() => {
-		const [eventFleetSent, eventExitComplete] = parseEvents(data)
+		const events = parseEvents(data)
 
-		let fleetSentList = []
-		eventFleetSent.forEach((loc) => {
-			fleetSentList.push(
+		let eventItems = []
+		events.forEach((event) => {
+			eventItems.push(
 				<div
 					className={styles.sidebar_data_row}
-					key={`${loc.x}-${loc.y}`}
+					key={`sidebar-${event.locX}-${event.locY}`}
 				>
 					<span className={styles.sidebar_data_loc}>
-						{loc.x}, {loc.y}
+						{event.locX}, {event.locY}
 					</span>
-					<span style={{ color: fleetSizeColor(loc.quantity) }}>
-						Fleet Sent
+					<span style={{ color: eventTypeColor(event.name) }}>
+						{event.name}
 					</span>
-					<span>{loc.quantity.toLocaleString()}</span>
 				</div>
 			)
 		})
-		setDataList(fleetSentList)
+		setDataList(eventItems)
 	}, [])
 
 	return (

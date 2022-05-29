@@ -5,35 +5,31 @@ import {
 	coordFromLocation
 } from "conquest-eth/lib/cjs/src/util/location"
 
-export const parseEvents = (data: any[]) => {
-	let fleetSent = []
-	let exitComplete = []
+interface Event {
+	name: string
+	locX: number
+	locY: number
+	blockNumber: number
+	blockTimestamp: number
+}
+
+const parseEvents = (data: any[]) => {
+	let events: Event[] = []
 
 	Object.keys(data).forEach((loc) => {
-		if (loc["name"] === "FleetSent") {
-			const locationHex = BigNumber.from(loc).toHexString()
-			const { x, y } = locationToXY(locationHex)
+		const locationHex = BigNumber.from(loc).toHexString()
+		const { x, y } = locationToXY(locationHex)
 
-			fleetSent.push({
-				x: x,
-				y: y,
-				quantity: loc["quantity"]
-			})
-		// } else if (event.event === "ExitComplete") {
-		// 	const locationHex = BigNumber.from(
-		// 		event.args.location
-		// 	).toHexString()
-		// 	const { x, y } = locationToXY(locationHex)
-
-		// 	exitComplete.push({
-		// 		x: x,
-		// 		y: y,
-		// 		stake: event.args.stake
-		// 	})
-		}
+		events.push({
+			name: data[loc].name,
+			locX: x,
+			locY: y,
+			blockNumber: data[loc].block_number,
+			blockTimestamp: data[loc].block_timestamp
+		})
 	})
 
-	return [fleetSent, exitComplete]
+	return events
 }
 
 export const fleetSizeColor = (quantity: number) => {
@@ -43,3 +39,26 @@ export const fleetSizeColor = (quantity: number) => {
 		return "orange"
 	} else return "red"
 }
+
+export const blockTimestampColor = (blockTimestamp: number) => {
+	const currentTime = Date.now()
+	// if (currentTime - blockTimestamp > )
+}
+
+export const eventTypeColor = (eventName: string) => {
+	const colors = {
+		ExitComplete: "#8bbdd8",
+		FleetSent: "#df1f54",
+		Transfer: "#7c789c",
+		PlanetExit: "#876089",
+		default: "#808080"
+	}
+
+	if (!colors[eventName]) {
+		return colors.default
+	} else {
+		return colors[eventName]
+	}
+}
+
+export default parseEvents

@@ -5,7 +5,7 @@ import Planet from "./elements/Planet"
 import { OrthographicCameraHelper } from "./elements/Camera"
 import Controls from "./elements/Controls"
 import Light from "./elements/Light"
-import { parseEvents, fleetSizeColor } from "./events"
+import parseEvents, {eventTypeColor} from "./events"
 import styles from "../styles/Map.module.css"
 
 export interface CameraConfig {
@@ -47,57 +47,30 @@ const Map = ({ data }) => {
 	const [windowWidth, setWindowWidth] = useState<number>(undefined)
 	const [windowHeight, setWindowHeight] = useState<number>(undefined)
 
-	const [fleetSentLocs, setFleetSentLocs] = useState([])
-	const [exitCompleteLocs, setExitCompleteLocs] = useState([])
+	const [eventLocs, setEventLocs] = useState([])
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth)
 		setWindowHeight(window.innerHeight)
 
-		const [eventFleetSent, eventExitComplete] = parseEvents(data)
+		const events = parseEvents(data)
 
 		// Fleet Sent event
-		let fleetSentItems = []
-		eventFleetSent.forEach((loc) => {
-			fleetSentItems.push(
+		let eventItems = []
+		events.forEach((event) => {
+			eventItems.push(
 				<Planet
-					color={fleetSizeColor(loc.quantity)}
+					color={eventTypeColor(event.name)}
 					scale={1}
-					eventDetails={{
-						name: "Fleet Sent",
-						locX: loc.x,
-						locY: loc.y,
-						quantity: loc.quantity
-					}}
-					position={[loc.x, loc.y, 0]}
-					key={`${loc.x}-${loc.y}`}
+					eventDetails={event}
+					position={[event.locX, event.locY, 0]}
+					key={`map-${event.locX}-${event.locY}`}
 					windowWidth={window.innerWidth}
 					windowHeight={window.innerWidth}
 				/>
 			)
 		})
-		setFleetSentLocs(fleetSentItems)
-
-		// Exit Complete event
-		let exitCompleteItems = []
-		eventExitComplete.forEach((loc) => {
-			exitCompleteItems.push(
-				<Planet
-					color="white"
-					scale={1}
-					eventDetails={{
-						name: "Exit Complete",
-						locX: loc.x,
-						locY: loc.y,
-						stake: loc.stake
-					}}
-					position={[loc.x, loc.y, 0]}
-					key={`${loc.x}-${loc.y}`}
-					eventStake={loc.stake}
-				/>
-			)
-		})
-		setExitCompleteLocs(exitCompleteItems)
+		setEventLocs(eventItems)
 	}, [])
 
 	return (
@@ -132,8 +105,7 @@ const Map = ({ data }) => {
 					posZ={cameraConfig.posZ}
 				/>
 				<Light />
-				{fleetSentLocs}
-				{exitCompleteLocs}
+				{eventLocs}
 			</Canvas>
 		</div>
 	)
