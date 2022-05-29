@@ -16,7 +16,7 @@
   "dependencies": {
     "@react-three/drei": "^9.11.3",
     "@react-three/fiber": "^8.0.19",
-    "conquest-eth": "/home/ubuntu/development/conquest-eth/conquest-eth-common",
+    "conquest-eth": "git+https://github.com/conquest-eth/conquest-eth-common.git",
     "next": "^12.1.6",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
