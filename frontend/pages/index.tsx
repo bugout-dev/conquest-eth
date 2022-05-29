@@ -9,7 +9,6 @@ import snapshotInfo from "../snapshotInfo.json"
 
 const Index = ({ data, snapshotInfo }) => {
 	const [activeLocation, setActiveLocation] = useState(null)
-	const [activeLocationSidebarRef, setActiveLocationSidebarRef] = useState(null)
 	return (
 		<Layout snapshotInfo={snapshotInfo}>
 			<Map data={data} setActiveLocation={setActiveLocation} />
