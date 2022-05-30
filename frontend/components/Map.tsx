@@ -30,7 +30,7 @@ export interface Event {
 }
 
 // Docs: https://docs.pmnd.rs/react-three-fiber
-const Map = ({ data, setActiveLocation }) => {
+const Map = ({ eventsLocationBased, setActiveLocation }) => {
 	const cameraConfig: CameraConfig = {
 		posX: 0,
 		posY: 0,
@@ -53,14 +53,14 @@ const Map = ({ data, setActiveLocation }) => {
 		setWindowWidth(window.innerWidth)
 		setWindowHeight(window.innerHeight)
 
-		const events = parseEvents(data)
+		const events = parseEvents(eventsLocationBased)
 
 		// Fleet Sent event
 		let eventItems = []
 		events.forEach((event) => {
 			eventItems.push(
 				<Planet
-					color={eventTypeColor(event.name)}
+					color={eventTypeColor(event.name, event.blockTimestamp)}
 					scale={1}
 					eventDetails={event}
 					position={[event.locX, event.locY, 0]}

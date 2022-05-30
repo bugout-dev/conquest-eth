@@ -64,7 +64,7 @@ const Planet = (props: JSX.IntrinsicElements["mesh"]) => {
             }}
         >
             <sphereBufferGeometry args={[1, 20, 20]} />
-            <meshBasicMaterial color={props.color} />
+            <meshStandardMaterial color={props.color} />
 
             {hoveredElement && (
                 <>

@@ -32,6 +32,23 @@ const parseEvents = (data: any[]) => {
 	return events
 }
 
+const colors_hsl = {
+	FleetArrived: [356, 83, 41],
+	FleetSent: [22, 97, 48],
+	PlanetTransfer: [220, 70, 70],
+	PlanetStake: [50, 100, 52],
+	ExitComplete: [134, 75, 72],
+	PlanetExit: [181, 49, 43],
+	Transfer: [249, 100, 75],
+	default: [0, 0, 35]
+}
+
+const parseColorHSL = (hsl: number[], saturation: number) => {
+	return `hsl(${hsl[0]}, ${Math.round((hsl[1] * saturation) / 100)}%, ${
+		hsl[2]
+	}%)`
+}
+
 export const fleetSizeColor = (quantity: number) => {
 	if (quantity < 100000) {
 		return "green"
@@ -40,24 +57,38 @@ export const fleetSizeColor = (quantity: number) => {
 	} else return "red"
 }
 
+// 1 day back = 86400
+// 3 days back = 259200
+// 7 days back = 604800
+// 14 days back = 1209600
 export const blockTimestampColor = (blockTimestamp: number) => {
-	const currentTime = Date.now()
-	// if (currentTime - blockTimestamp > )
+	const currentTime = Math.floor(Date.now() / 1000)
+	const difference = currentTime - blockTimestamp
+
+	if (difference >= 86400 && difference < 259200) {
+		return 80
+	} else if (difference >= 259200 && difference < 604800) {
+		return 50
+	} else if (difference >= 604800 && difference < 1209600) {
+		return 20
+	} else if (difference >= 1209600) {
+		return 1
+	} else {
+		return 100
+	}
 }
 
-export const eventTypeColor = (eventName: string) => {
-	const colors = {
-		ExitComplete: "#8bbdd8",
-		FleetSent: "#df1f54",
-		Transfer: "#7c789c",
-		PlanetExit: "#876089",
-		default: "#808080"
-	}
-
-	if (!colors[eventName]) {
-		return colors.default
+export const eventTypeColor = (eventName: string, blockTimestamp: number) => {
+	if (!colors_hsl[eventName]) {
+		return parseColorHSL(
+			colors_hsl.default,
+			blockTimestampColor(blockTimestamp)
+		)
 	} else {
-		return colors[eventName]
+		return parseColorHSL(
+			colors_hsl[eventName],
+			blockTimestampColor(blockTimestamp)
+		)
 	}
 }
 

@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react"
 import parseEvents, { eventTypeColor } from "./events"
 import styles from "../styles/Sidebar.module.css"
 
-const Sidebar = ({ data, activeLocation }) => {
+const Sidebar = ({ eventsLocationBased, activeLocation }) => {
     const [dataList, setDataList] = useState([])
     const [activeSidebarRef, setActiveSidebarRef] = useState(null)
 
@@ -18,7 +18,7 @@ const Sidebar = ({ data, activeLocation }) => {
     }, [activeLocation])
 
     useEffect(() => {
-        const events = parseEvents(data)
+        const events = parseEvents(eventsLocationBased)
 
         let eventItems = []
         events.forEach((event) => {
@@ -67,7 +67,7 @@ const SidebarItem = ({ event, activeLocation, setActiveSidebarRef }) => {
             <span className={styles.sidebar_data_loc}>
                 {event.locX}, {event.locY}
             </span>
-            <span style={{ color: eventTypeColor(event.name) }}>
+            <span style={{ color: eventTypeColor(event.name, event.blockTimestamp) }}>
                 {event.name}
             </span>
         </div>

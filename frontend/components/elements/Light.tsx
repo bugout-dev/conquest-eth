@@ -6,8 +6,8 @@ const Light = (props: JSX.IntrinsicElements["mesh"]) => {
 
 	return (
 		<mesh ref={lightRef}>
-			<ambientLight />
-            <pointLight position={[0, 0, 5]} intensity={3} />
+			{/* <ambientLight /> */}
+            <pointLight position={[0, 0, 200]} intensity={1} />
 		</mesh>
 	)
 }

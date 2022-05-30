@@ -187,5 +187,5 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,visualstudiocode,node,react
 
 # Custom
-data.json
-
+eventsLocationBased.json
+snapshotInfo.json
