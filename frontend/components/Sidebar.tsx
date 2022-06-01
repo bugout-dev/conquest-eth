@@ -28,7 +28,7 @@ const Sidebar = ({
 	}, [activeSidebarRef])
 
 	useEffect(() => {
-        // Generate row with data about each planet
+		// Generate row with data about each planet
 		let eventItems = []
 		events.forEach((event) => {
 			eventItems.push(
@@ -44,28 +44,34 @@ const Sidebar = ({
 
 	return (
 		<div className={styles.sidebar}>
-			<div className={styles.sidebar_title}>
-				<p>Tooling</p>
+			<div className={styles.title}>
+				<p>Options</p>
 			</div>
-			<div className={styles.sidebar_tooling}>
-				<input
-					type="number"
-					onChange={(e) =>
-						setFleetLimitState(parseInt(e.target.value))
-					}
-				/>
-				<input
-					type="checkbox"
-					onChange={(e) =>
-						setFleetLimitStateHideZero(!fleetLimitStateHideZero)
-					}
-				/>
+			<div className={styles.options}>
+				<div className={styles.fleet_state}>
+					<input
+						className={styles.short_input}
+						value={fleetLimitState}
+						type="number"
+						onChange={(e) =>
+							setFleetLimitState(parseInt(e.target.value))
+						}
+					/>
+					<span className={styles.fleet_state_text}>fleet state</span>
+					<input
+						className={styles.checkbox}
+						type="checkbox"
+						onChange={(e) =>
+							setFleetLimitStateHideZero(!fleetLimitStateHideZero)
+						}
+					/>
+				</div>
 			</div>
-			<div className={styles.sidebar_title}>
+			<div className={styles.title}>
 				<p>Events</p>
 			</div>
 			<div
-				className={styles.sidebar_data}
+				className={styles.data}
 				style={{ maxHeight: windowHeight - 240 }}
 			>
 				{dataList.filter((el) => {
@@ -81,8 +87,7 @@ const Sidebar = ({
 							return el
 						}
 						if (
-							!fleetLimitStateHideZero &&
-							parseInt(el.props.event.currentFleetState) === 0
+							!fleetLimitStateHideZero
 						) {
 							return el
 						}

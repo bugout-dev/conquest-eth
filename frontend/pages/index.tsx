@@ -10,8 +10,9 @@ import parseEvents from "../components/events"
 
 const Index = ({ eventsLocationBased, snapshotInfo, planetLocsStates }) => {
 	const [activeLocation, setActiveLocation] = useState(null)
-	const [fleetLimitState, setFleetLimitState] = useState<number>(0)
-	const [fleetLimitStateHideZero, setFleetLimitStateHideZero] = useState<boolean>(false)
+	const [fleetLimitState, setFleetLimitState] = useState<number>(3200100)
+	const [fleetLimitStateHideZero, setFleetLimitStateHideZero] =
+		useState<boolean>(false)
 	const [events, setEvents] = useState([])
 
 	useEffect(() => {
@@ -42,6 +43,7 @@ const Index = ({ eventsLocationBased, snapshotInfo, planetLocsStates }) => {
 }
 
 export default Index
+
 export async function getStaticProps() {
 	return {
 		props: { eventsLocationBased, snapshotInfo, planetLocsStates }

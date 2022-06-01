@@ -6,7 +6,7 @@ import styles from "../styles/Sidebar.module.css"
 const SidebarDataRow = ({ event, activeLocation, setActiveSidebarRef }) => {
 	const itemRef = useRef(null)
 
-    // Responsible for scrolling to row with information about picked planet
+	// Responsible for scrolling to row with information about picked planet
 	if (
 		activeLocation !== null &&
 		event.locX === activeLocation[0] &&
@@ -18,7 +18,7 @@ const SidebarDataRow = ({ event, activeLocation, setActiveSidebarRef }) => {
 	return (
 		<div
 			ref={itemRef}
-			className={styles.sidebar_data_row}
+			className={styles.row}
 			style={{
 				backgroundColor:
 					activeLocation !== null &&
@@ -29,17 +29,35 @@ const SidebarDataRow = ({ event, activeLocation, setActiveSidebarRef }) => {
 			}}
 			key={`sidebar-${event.locX}-${event.locY}`}
 		>
-			<span className={styles.sidebar_data_loc}>
-				{event.locX}, {event.locY}
+			<span
+				className={
+					event.locX >= 0
+						? styles.locX
+						: styles.locXnegative
+				}
+			>
+				{event.locX}
 			</span>
 			<span
+				className={
+					event.locX >= 0
+						? styles.locY
+						: styles.locYnegative
+				}
+			>
+				{event.locY}
+			</span>
+			<span
+				className={styles.event_name}
 				style={{
 					color: eventTypeColor(event.name, event.blockTimestamp)
 				}}
 			>
 				{event.name}
 			</span>
-			<span>{event.currentFleetState}</span>
+			<span className={styles.fleet_state}>
+				{parseInt(event.currentFleetState).toLocaleString()}
+			</span>
 		</div>
 	)
 }

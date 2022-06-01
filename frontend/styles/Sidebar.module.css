@@ -2,23 +2,87 @@
 	flex: 1;
 }
 
-.sidebar_title {
+.title {
 	text-align: center;
 }
 
-.sidebar_data {
-	scrollbar-width: none;
+/* Options */
+
+.options > .fleet_state {
+	/* display: flex; */
+}
+
+.short_input {
+	background-color: transparent;
+	border: 1px solid var(--background-color-button);
+	border-radius: 8px;
+	color: var(--text-color-light);
+	margin: 0.5em;
+	padding: 0.5em;
+	width: 7em;
+}
+.short_input:focus {
+	border: 1px solid var(--primary-color);
+}
+
+.short_input::-webkit-outer-spin-button,
+.short_input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.short_input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.fleet_state_text {
+	padding: 0 0.2em;
+}
+
+.checkbox {
+	margin-left: 1em;
+}
+
+/* Data rows */
+.data {
+	scrollbar-width: thin;
 	overflow-y: scroll;
 	scroll-behavior: smooth;
 	margin-top: 1em;
 }
 
-.sidebar_data > .sidebar_data_row {
+.data > .row {
 	margin: 0;
 	padding-top: 0.2em;
 	padding-left: 0.6em;
+	display: flex;
 }
 
-.sidebar_data > .sidebar_data_row > span + span {
+.data > .row > span + span {
 	padding-left: 0.4em;
+}
+
+.data > .row > .locX {
+	padding-left: 0.4em;
+	width: 2em;
+}
+.data > .row > .locXnegative {
+	width: 2em;
+}
+.data > .row > .locY {
+	padding-left: 0.4em;
+	width: 2em;
+}
+.data > .row > .locYnegative {
+	width: 2em;
+}
+
+.data > .row > .event_name {
+	padding-left: 0.4em;
+	margin-left: 1em;
+	width: 8em;
+}
+
+.data > .row > .fleet_state {
+	width: 5em;
+	text-align: right;
 }

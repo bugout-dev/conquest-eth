@@ -26,23 +26,26 @@ const Layout = ({ children, title = "map", snapshotInfo }) => {
 					<nav>
 						<ul className={styles.site_nav}>
 							<li>
-								<a href="https://moonstream.to">MOONSTREAM</a>
+								<a href="/"><b>conquest-eth map</b></a>
 							</li>
 							<li className={styles.nav_right}>
-								<a href="/">MAP</a>
+								<a href="/about">About</a>
 							</li>
 							<li>
-								<a href="/">ABOUT</a>
-							</li>
-							<li>
-								<a href={`https://blockscout.com/xdai/mainnet/block/${snapshotBlockNumber}`} target="#">Block Number: {snapshotBlockNumber}</a>
+								<a
+									href={`https://blockscout.com/xdai/mainnet/block/${snapshotBlockNumber}`}
+									target="#"
+								>
+									Block Number:{" "}
+									{snapshotBlockNumber.toLocaleString()}
+								</a>
 							</li>
 						</ul>
 					</nav>
 				</header>
 				<main className={styles.main}>{children}</main>
 				<footer className={styles.footer}>
-					<p>© 2022 MOONSTREAM</p>
+					<p>© 2022 moonstream</p>
 				</footer>
 			</div>
 		</>

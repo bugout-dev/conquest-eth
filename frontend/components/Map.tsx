@@ -84,8 +84,8 @@ const Map = ({
 				}}
 			>
 				<Controls />
-				<axesHelper args={[10]} />
-				<OrthographicCameraHelper
+				{/* <axesHelper args={[10]} /> */}
+				{/* <OrthographicCameraHelper
 					left={cameraConfig.left}
 					right={cameraConfig.right}
 					top={cameraConfig.top}
@@ -95,7 +95,7 @@ const Map = ({
 					posX={cameraConfig.posX}
 					posY={cameraConfig.posY}
 					posZ={cameraConfig.posZ}
-				/>
+				/> */}
 				<Light />
 				{eventLocs.filter((el) => {
 					// Filtering planets by setting number of fleet value
@@ -111,12 +111,7 @@ const Map = ({
 						) {
 							return el
 						}
-						if (
-							!fleetLimitStateHideZero &&
-							parseInt(
-								el.props.eventDetails.currentFleetState
-							) === 0
-						) {
+						if (!fleetLimitStateHideZero) {
 							return el
 						}
 					}

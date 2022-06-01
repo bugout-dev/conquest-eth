@@ -63,14 +63,14 @@ const Planet = (props: JSX.IntrinsicElements["mesh"]) => {
                 ])
             }}
         >
-            <sphereBufferGeometry args={[1, 20, 20]} />
+            <sphereBufferGeometry args={[0.5, 20, 20]} />
             <meshStandardMaterial color={props.color} />
 
             {hoveredElement && (
                 <>
                     <mesh ref={ringRef}>
                         <ringGeometry
-                            args={[2, 2.2, 40, 1, 0, 0.5 * Math.PI]}
+                            args={[1, 1.2, 40, 1, 0, 0.5 * Math.PI]}
                         />
                         <meshBasicMaterial
                             color="white"
@@ -80,7 +80,7 @@ const Planet = (props: JSX.IntrinsicElements["mesh"]) => {
                         />
                     </mesh>
                     <mesh>
-                        <ringGeometry args={[3, 3.2, 40]} />
+                        <ringGeometry args={[2, 2.2, 40]} />
                         <meshBasicMaterial
                             color="white"
                             // transparent={true}

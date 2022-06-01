@@ -7,7 +7,7 @@ const Controls = () => {
 		gl: { domElement }
 	} = useThree()
 
-	return <orbitControls args={[camera, domElement]} />
+	return <orbitControls args={[camera, domElement]} enableRotate={false} />
 }
 
 // Overwrite global elements
