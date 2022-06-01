@@ -88,11 +88,8 @@ const Planet = (props: JSX.IntrinsicElements["mesh"]) => {
                             // side={THREE.DoubleSide}
                         />
                     </mesh>
+                    <Details eventDetails={props.eventDetails} />
                 </>
-            )}
-
-            {(hoveredElement || activeElement) && (
-                <Details eventDetails={props.eventDetails} />
             )}
         </mesh>
     )

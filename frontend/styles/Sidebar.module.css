@@ -1,8 +1,5 @@
 .sidebar {
 	flex: 1;
-	max-height: 600px;
-	overflow-y:scroll;
-	scroll-behavior: smooth;
 }
 
 .sidebar_title {
@@ -10,6 +7,9 @@
 }
 
 .sidebar_data {
+	scrollbar-width: none;
+	overflow-y: scroll;
+	scroll-behavior: smooth;
 	margin-top: 1em;
 }
 

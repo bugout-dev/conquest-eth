@@ -5,7 +5,7 @@ import Planet from "./elements/Planet"
 import { OrthographicCameraHelper } from "./elements/Camera"
 import Controls from "./elements/Controls"
 import Light from "./elements/Light"
-import parseEvents, {eventTypeColor} from "./events"
+import { eventTypeColor } from "./events"
 import styles from "../styles/Map.module.css"
 
 export interface CameraConfig {
@@ -21,16 +21,15 @@ export interface CameraConfig {
 	zoom: number
 }
 
-export interface Event {
-	name: string
-	locX: number
-	locY: number
-	quantity: number
-	stake: number
-}
-
 // Docs: https://docs.pmnd.rs/react-three-fiber
-const Map = ({ eventsLocationBased, setActiveLocation }) => {
+const Map = ({
+	events,
+	setActiveLocation,
+	fleetLimitState,
+	setFleetLimitState,
+	fleetLimitStateHideZero,
+	setFleetLimitStateHideZero
+}) => {
 	const cameraConfig: CameraConfig = {
 		posX: 0,
 		posY: 0,
@@ -44,18 +43,10 @@ const Map = ({ eventsLocationBased, setActiveLocation }) => {
 		zoom: 5
 	}
 
-	const [windowWidth, setWindowWidth] = useState<number>(undefined)
-	const [windowHeight, setWindowHeight] = useState<number>(undefined)
-
 	const [eventLocs, setEventLocs] = useState([])
 
 	useEffect(() => {
-		setWindowWidth(window.innerWidth)
-		setWindowHeight(window.innerHeight)
-
-		const events = parseEvents(eventsLocationBased)
-
-		// Fleet Sent event
+		// Generate planets to render on the scene
 		let eventItems = []
 		events.forEach((event) => {
 			eventItems.push(
@@ -72,7 +63,7 @@ const Map = ({ eventsLocationBased, setActiveLocation }) => {
 			)
 		})
 		setEventLocs(eventItems)
-	}, [])
+	}, [events])
 
 	return (
 		<div id={styles.map}>
@@ -106,7 +97,30 @@ const Map = ({ eventsLocationBased, setActiveLocation }) => {
 					posZ={cameraConfig.posZ}
 				/>
 				<Light />
-				{eventLocs}
+				{eventLocs.filter((el) => {
+					// Filtering planets by setting number of fleet value
+					if (
+						parseInt(el.props.eventDetails.currentFleetState) <=
+						fleetLimitState
+					) {
+						if (
+							fleetLimitStateHideZero &&
+							parseInt(
+								el.props.eventDetails.currentFleetState
+							) !== 0
+						) {
+							return el
+						}
+						if (
+							!fleetLimitStateHideZero &&
+							parseInt(
+								el.props.eventDetails.currentFleetState
+							) === 0
+						) {
+							return el
+						}
+					}
+				})}
 			</Canvas>
 		</div>
 	)

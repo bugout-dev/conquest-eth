@@ -11,9 +11,11 @@ interface Event {
 	locY: number
 	blockNumber: number
 	blockTimestamp: number
+	currentFleetState: number
 }
 
-const parseEvents = (data: any[]) => {
+// Convert data from json in event structure
+const parseEvents = (data: any[], planetLocsStates: any[]): Event[] => {
 	let events: Event[] = []
 
 	Object.keys(data).forEach((loc) => {
@@ -25,13 +27,15 @@ const parseEvents = (data: any[]) => {
 			locX: x,
 			locY: y,
 			blockNumber: data[loc].block_number,
-			blockTimestamp: data[loc].block_timestamp
+			blockTimestamp: data[loc].block_timestamp,
+			currentFleetState: planetLocsStates[loc]
 		})
 	})
 
 	return events
 }
 
+// HSL colors
 const colors_hsl = {
 	FleetArrived: [356, 83, 41],
 	FleetSent: [22, 97, 48],
@@ -57,6 +61,7 @@ export const fleetSizeColor = (quantity: number) => {
 	} else return "red"
 }
 
+// Modify saturation according to timestamp since last event for planet
 // 1 day back = 86400
 // 3 days back = 259200
 // 7 days back = 604800
@@ -78,6 +83,7 @@ export const blockTimestampColor = (blockTimestamp: number) => {
 	}
 }
 
+// Render proper color for exact event according to timestamp and other filters
 export const eventTypeColor = (eventName: string, blockTimestamp: number) => {
 	if (!colors_hsl[eventName]) {
 		return parseColorHSL(

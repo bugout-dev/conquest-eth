@@ -1,77 +1,96 @@
 import { useEffect, useState, useRef } from "react"
 
-import parseEvents, { eventTypeColor } from "./events"
+import SidebarDataRow from "./SidebarDataRow"
 import styles from "../styles/Sidebar.module.css"
 
-const Sidebar = ({ eventsLocationBased, activeLocation }) => {
-    const [dataList, setDataList] = useState([])
-    const [activeSidebarRef, setActiveSidebarRef] = useState(null)
+const Sidebar = ({
+	events,
+	activeLocation,
+	fleetLimitState,
+	setFleetLimitState,
+	fleetLimitStateHideZero,
+	setFleetLimitStateHideZero
+}) => {
+	const [dataList, setDataList] = useState([])
+	const [activeSidebarRef, setActiveSidebarRef] = useState(null)
+	const [windowHeight, setWindowHeight] = useState<number>(undefined)
 
 	useEffect(() => {
-		if (activeSidebarRef && activeSidebarRef.current && activeSidebarRef.current.scrollIntoView) {
+		setWindowHeight(window.innerHeight)
+
+		if (
+			activeSidebarRef &&
+			activeSidebarRef.current &&
+			activeSidebarRef.current.scrollIntoView
+		) {
 			activeSidebarRef.current.scrollIntoView()
 		}
 	}, [activeSidebarRef])
 
-    useEffect(() => {
-        console.log("Active location: ", activeLocation)
-    }, [activeLocation])
+	useEffect(() => {
+        // Generate row with data about each planet
+		let eventItems = []
+		events.forEach((event) => {
+			eventItems.push(
+				<SidebarDataRow
+					event={event}
+					activeLocation={activeLocation}
+					setActiveSidebarRef={setActiveSidebarRef}
+				/>
+			)
+		})
+		setDataList(eventItems)
+	}, [events, activeLocation])
 
-    useEffect(() => {
-        const events = parseEvents(eventsLocationBased)
-
-        let eventItems = []
-        events.forEach((event) => {
-            eventItems.push(
-                <SidebarItem
-                    event={event}
-                    activeLocation={activeLocation}
-                    setActiveSidebarRef={setActiveSidebarRef}
-                />
-            )
-        })
-        setDataList(eventItems)
-    }, [activeLocation])
-
-    return (
-        <div className={styles.sidebar}>
-            <div className={styles.sidebar_title}>
-                <p>Events</p>
-            </div>
-            <div className={styles.sidebar_data}>{dataList}</div>
-        </div>
-    )
-}
-
-const SidebarItem = ({ event, activeLocation, setActiveSidebarRef }) => {
-    const itemRef = useRef(null)
-
-	if (activeLocation !== null && event.locX === activeLocation[0] && event.locY === activeLocation[1]) {
-		setActiveSidebarRef(itemRef)
-	}
-
-    return (
-        <div
-			ref={itemRef}
-            className={styles.sidebar_data_row}
-            style={{
-                backgroundColor:
-                    activeLocation !== null &&
-                    event.locX === activeLocation[0] &&
-                    event.locY === activeLocation[1]
-                        ? "#2d3748"
-                        : "#1a202c",
-            }}
-            key={`sidebar-${event.locX}-${event.locY}`}
-        >
-            <span className={styles.sidebar_data_loc}>
-                {event.locX}, {event.locY}
-            </span>
-            <span style={{ color: eventTypeColor(event.name, event.blockTimestamp) }}>
-                {event.name}
-            </span>
-        </div>
-    )
+	return (
+		<div className={styles.sidebar}>
+			<div className={styles.sidebar_title}>
+				<p>Tooling</p>
+			</div>
+			<div className={styles.sidebar_tooling}>
+				<input
+					type="number"
+					onChange={(e) =>
+						setFleetLimitState(parseInt(e.target.value))
+					}
+				/>
+				<input
+					type="checkbox"
+					onChange={(e) =>
+						setFleetLimitStateHideZero(!fleetLimitStateHideZero)
+					}
+				/>
+			</div>
+			<div className={styles.sidebar_title}>
+				<p>Events</p>
+			</div>
+			<div
+				className={styles.sidebar_data}
+				style={{ maxHeight: windowHeight - 240 }}
+			>
+				{dataList.filter((el) => {
+					// Filtering data rows about planets by setting number of fleet value
+					if (
+						parseInt(el.props.event.currentFleetState) <=
+						fleetLimitState
+					) {
+						if (
+							fleetLimitStateHideZero &&
+							parseInt(el.props.event.currentFleetState) !== 0
+						) {
+							return el
+						}
+						if (
+							!fleetLimitStateHideZero &&
+							parseInt(el.props.event.currentFleetState) === 0
+						) {
+							return el
+						}
+					}
+				})}
+			</div>
+		</div>
+	)
 }
 
 export default Sidebar
