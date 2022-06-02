@@ -16,7 +16,7 @@ interface Event {
 }
 
 // Convert data from json in event structure
-const parseEvents = (data: any[], planetLocsStates: any[]): Event[] => {
+const parseEvents = (data: any[], planetLocsFleetStates: any[]): Event[] => {
 	let events: Event[] = []
 
 	Object.keys(data).forEach((loc) => {
@@ -29,7 +29,7 @@ const parseEvents = (data: any[], planetLocsStates: any[]): Event[] => {
 			locY: y,
 			blockNumber: data[loc].block_number,
 			blockTimestamp: data[loc].block_timestamp,
-			currentFleetState: planetLocsStates[loc],
+			currentFleetState: planetLocsFleetStates[loc],
 			stake: data[loc].stake
 		})
 	})

@@ -5,10 +5,14 @@ import Map from "../components/Map"
 import Sidebar from "../components/Sidebar"
 import eventsLocationBased from "../public/eventsLocationBased.json"
 import snapshotInfo from "../public/snapshotInfo.json"
-import planetLocsStates from "../public/planetLocsStates.json"
+import planetLocsFleetStates from "../public/planetLocsFleetStates.json"
 import parseEvents from "../components/events"
 
-const Index = ({ eventsLocationBased, snapshotInfo, planetLocsStates }) => {
+const Index = ({
+	eventsLocationBased,
+	snapshotInfo,
+	planetLocsFleetStates
+}) => {
 	const [activeLocation, setActiveLocation] = useState(null)
 	const [fleetLimitState, setFleetLimitState] = useState<number>(8200100)
 	const [fleetLimitStateHideZero, setFleetLimitStateHideZero] =
@@ -16,7 +20,7 @@ const Index = ({ eventsLocationBased, snapshotInfo, planetLocsStates }) => {
 	const [events, setEvents] = useState([])
 
 	useEffect(() => {
-		const events = parseEvents(eventsLocationBased, planetLocsStates)
+		const events = parseEvents(eventsLocationBased, planetLocsFleetStates)
 		setEvents(events)
 	}, [])
 
@@ -46,6 +50,6 @@ export default Index
 
 export async function getStaticProps() {
 	return {
-		props: { eventsLocationBased, snapshotInfo, planetLocsStates }
+		props: { eventsLocationBased, snapshotInfo, planetLocsFleetStates }
 	}
 }
