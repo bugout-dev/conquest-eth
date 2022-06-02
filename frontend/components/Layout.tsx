@@ -3,7 +3,7 @@ import Head from "next/head"
 
 import styles from "../styles/Layout.module.css"
 
-const Layout = ({ children, title = "map", snapshotInfo }) => {
+const Layout = ({ children, title = "Conquest-eth map", snapshotInfo }) => {
 	const [snapshotBlockNumber, setSnapshotBlockNumber] = useState(0)
 	useEffect(() => {
 		if (snapshotInfo && snapshotInfo.block_number) {
@@ -19,7 +19,7 @@ const Layout = ({ children, title = "map", snapshotInfo }) => {
 					rel="icon"
 					href="https://s3.amazonaws.com/static.simiotics.com/moonstream/assets/favicon.png"
 				/>
-				<meta name="description" content="Map" />
+				<meta name="description" content="Conquest-eth map from moonstream.to" />
 			</Head>
 			<div className={styles.container}>
 				<header className={styles.header}>
