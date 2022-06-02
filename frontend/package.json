@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ethersproject/bignumber": "^5.5.0",
     "@react-three/drei": "^9.11.3",
     "@react-three/fiber": "^8.0.19",
     "conquest-eth": "git+https://github.com/conquest-eth/conquest-eth-common.git",
