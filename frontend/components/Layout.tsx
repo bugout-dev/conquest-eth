@@ -29,7 +29,7 @@ const Layout = ({ children, title = "map", snapshotInfo }) => {
 								<a href="/"><b>conquest-eth map</b></a>
 							</li>
 							<li className={styles.nav_right}>
-								<a href="/about">About</a>
+								<a href="/about.html">About</a>
 							</li>
 							<li>
 								<a
