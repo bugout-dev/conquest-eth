@@ -72,7 +72,9 @@ const Sidebar = ({
 			</div>
 			<div
 				className={styles.data}
-				style={{ maxHeight: windowHeight - 240 }}
+				style={{
+					maxHeight: windowHeight ? windowHeight - 240 : "200px"
+				}}
 			>
 				{dataList.filter((el) => {
 					// Filtering data rows about planets by setting number of fleet value
@@ -86,9 +88,7 @@ const Sidebar = ({
 						) {
 							return el
 						}
-						if (
-							!fleetLimitStateHideZero
-						) {
+						if (!fleetLimitStateHideZero) {
 							return el
 						}
 					}

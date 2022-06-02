@@ -10,7 +10,7 @@ import parseEvents from "../components/events"
 
 const Index = ({ eventsLocationBased, snapshotInfo, planetLocsStates }) => {
 	const [activeLocation, setActiveLocation] = useState(null)
-	const [fleetLimitState, setFleetLimitState] = useState<number>(3200100)
+	const [fleetLimitState, setFleetLimitState] = useState<number>(8200100)
 	const [fleetLimitStateHideZero, setFleetLimitStateHideZero] =
 		useState<boolean>(false)
 	const [events, setEvents] = useState([])

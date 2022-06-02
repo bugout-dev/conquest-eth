@@ -42,7 +42,6 @@ const Planet = (props: JSX.IntrinsicElements["mesh"]) => {
         // 	ringRef.current.rotation += 0.01;
         // }
         // if (ringRef !== null) {
-        // 	console.log(ringRef)
         // }
         if (hoveredElement) {
             ringRef.current.rotation.z += 0.01

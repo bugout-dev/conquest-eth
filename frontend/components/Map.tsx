@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Canvas } from "@react-three/fiber"
+import { Edges } from "@react-three/drei"
 
 import Planet from "./elements/Planet"
 import { OrthographicCameraHelper } from "./elements/Camera"
@@ -44,6 +45,35 @@ const Map = ({
 	}
 
 	const [eventLocs, setEventLocs] = useState([])
+	const [sectors, setSectors] = useState(<></>)
+
+	useEffect(() => {
+		// Grid
+		// TODO(kompotkot): Move in component
+		const step = 16
+		const shift = 8
+
+		let sectorItems = []
+		for (let i = 0; i <= step * 2 * shift; i += step) {
+			for (let j = 0; j <= step * 2 * shift; j += step) {
+				sectorItems.push(
+					<mesh position={[i, j, 0]}>
+						<boxGeometry args={[16, 16, 0]} />
+						<meshBasicMaterial opacity={0.0} transparent={true} />
+						<Edges color="#303a4d" />
+					</mesh>
+				)
+			}
+		}
+
+		let fullSectorItem = (
+			<mesh position={[-step * shift, -step * shift, 0]}>
+				{sectorItems}
+			</mesh>
+		)
+
+		setSectors(fullSectorItem)
+	}, [])
 
 	useEffect(() => {
 		// Generate planets to render on the scene
@@ -54,7 +84,7 @@ const Map = ({
 					color={eventTypeColor(event.name, event.blockTimestamp)}
 					scale={1}
 					eventDetails={event}
-					position={[event.locX, event.locY, 0]}
+					position={[event.locX, -1 * event.locY, 0]} // event.locY should be multiplied to -1 because of strange original conquest-eth positioning
 					key={`map-${event.locX}-${event.locY}`}
 					windowWidth={window.innerWidth}
 					windowHeight={window.innerWidth}
@@ -97,6 +127,10 @@ const Map = ({
 					posZ={cameraConfig.posZ}
 				/> */}
 				<Light />
+				<boxGeometry args={[16, 16, 0.5]} />
+				<meshBasicMaterial opacity={0.0} transparent={true} />
+				<Edges color="#435169" />
+				{sectors}
 				{eventLocs.filter((el) => {
 					// Filtering planets by setting number of fleet value
 					if (
