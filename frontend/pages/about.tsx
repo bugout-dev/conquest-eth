@@ -1,8 +1,22 @@
+import { useEffect, useState } from "react"
+
 import Layout from "../components/Layout"
-import snapshotInfo from "../public/snapshotInfo.json"
 import styles from "../styles/About.module.css"
 
 const About = () => {
+	const [snapshotInfo, setSnapshotInfo] = useState(undefined)
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const snapshotInfoRaw = await fetch(
+				"https://s3.amazonaws.com/static.simiotics.com/conquest-eth/snapshotInfo.json"
+			)
+			setSnapshotInfo(await snapshotInfoRaw.json())
+		}
+
+		fetchData().catch(() => {})
+	}, [])
+
 	return (
 		<Layout snapshotInfo={snapshotInfo}>
 			<div className={styles.description}>
@@ -20,9 +34,3 @@ const About = () => {
 }
 
 export default About
-
-export async function getStaticProps() {
-	return {
-		props: { snapshotInfo }
-	}
-}
