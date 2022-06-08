@@ -51,7 +51,7 @@ const Map = ({
 		// Grid
 		// TODO(kompotkot): Move in component
 		const step = 16
-		const shift = 8
+		const shift = 9 // Increase size of all map area
 
 		let sectorItems = []
 		for (let i = 0; i <= step * 2 * shift; i += step) {

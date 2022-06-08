@@ -61,6 +61,20 @@
 	margin-top: 1.2em;
 }
 
+/* Color range */
+.options > .color_range {
+	height: 1.6em;
+	width: 100%;
+	display: flex;
+}
+.options > .color_range > .color_box {
+	height: 100%;
+}
+.options > .color_range > .color_box > p {
+	text-align: center;
+	margin-top: 0.05em;
+}
+
 /* Data rows */
 .data {
 	scrollbar-width: thin;

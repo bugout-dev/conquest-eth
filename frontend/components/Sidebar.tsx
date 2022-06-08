@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 
 import SidebarDataRow from "./SidebarDataRow"
+import { saturationSteps } from "./events"
 import styles from "../styles/Sidebar.module.css"
 
 const Sidebar = ({
@@ -14,6 +15,25 @@ const Sidebar = ({
 	const [dataList, setDataList] = useState([])
 	const [activeSidebarRef, setActiveSidebarRef] = useState(null)
 	const [windowHeight, setWindowHeight] = useState<number>(undefined)
+
+	const [colorBox, setColorBox] = useState([])
+
+	useEffect(() => {
+		let colorBoxDiv = []
+		for (const [key, value] of Object.entries(saturationSteps)) {
+			const color = `hsl(203, ${Math.round((39 * value[2]) / 100)}%, 44%)`
+			colorBoxDiv.push(
+				<div
+					className={styles.color_box}
+					style={{
+						backgroundColor: color,
+						width: `${100 / Object.keys(saturationSteps).length}%`
+					}}
+				><p>{key}</p></div>
+			)
+		}
+		setColorBox(colorBoxDiv)
+	}, [])
 
 	useEffect(() => {
 		setWindowHeight(window.innerHeight)
@@ -45,11 +65,17 @@ const Sidebar = ({
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.title}>
-				<img className={styles.icon} src="icon-filter.png" alt="Filter icon" /> 
+				<img
+					className={styles.icon}
+					src="icon-filter.png"
+					alt="Filter icon"
+				/>
 				<p>Fleet Filters</p>
 			</div>
 			<div className={styles.options}>
-				<span className={styles.fleet_state_text}>Fleet state on planet ≤</span>
+				<span className={styles.fleet_state_text}>
+					Fleet state on planet ≤
+				</span>
 				<div className={styles.fleet_state}>
 					<input
 						className={styles.short_input}
@@ -62,7 +88,9 @@ const Sidebar = ({
 				</div>
 			</div>
 			<div className={styles.options}>
-				<span className={styles.fleet_state_text}>Hide empty fleet state</span>
+				<span className={styles.fleet_state_text}>
+					Hide empty fleet state
+				</span>
 				<div className={styles.fleet_state}>
 					<input
 						className={styles.checkbox}
@@ -74,13 +102,17 @@ const Sidebar = ({
 				</div>
 			</div>
 			<div className={styles.title}>
-				<img className={styles.icon} src="icon-data.png" alt="Data icon" /> 
+				<img
+					className={styles.icon}
+					src="icon-data.png"
+					alt="Data icon"
+				/>
 				<p>List of events</p>
 			</div>
 			<div
 				className={styles.data}
 				style={{
-					maxHeight: windowHeight ? windowHeight - 340 : "200px"
+					maxHeight: windowHeight ? windowHeight - 480 : "200px"
 				}}
 			>
 				{dataList.filter((el) => {
@@ -100,6 +132,19 @@ const Sidebar = ({
 						}
 					}
 				})}
+			</div>
+
+			<div className={styles.title}>
+				<img
+					className={styles.icon}
+					src="icon-filter.png"
+					alt="Filter icon"
+				/>
+				<p>Time Range Filters</p>
+			</div>
+			<p>Time since the last event on the planet (days)</p>
+			<div className={styles.options}>
+				<div className={styles.color_range}>{colorBox}</div>
 			</div>
 		</div>
 	)

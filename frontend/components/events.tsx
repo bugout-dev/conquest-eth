@@ -68,6 +68,13 @@ export const fleetSizeColor = (quantity: number) => {
 // 3 days back = 259200
 // 7 days back = 604800
 // 14 days back = 1209600
+export const saturationSteps = {
+	"≤ 1": [0, 86400, 100],
+	"1 to 3": [86400, 259200, 80],
+	"3 to 7": [259200, 604800, 50],
+	"7 to 14": [604800, 1209600, 20],
+	"> 14": [1209600, 0, 1]
+}
 export const blockTimestampColor = (blockTimestamp: number) => {
 	const currentTime = Math.floor(Date.now() / 1000)
 	const difference = currentTime - blockTimestamp
