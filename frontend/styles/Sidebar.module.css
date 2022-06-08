@@ -1,18 +1,41 @@
 .sidebar {
 	flex: 1;
+	margin: 0 1em;
 }
 
 .title {
 	text-align: center;
+	display: flex;
+	margin-top: 1em;
+	border-bottom: 1px solid var(--background-color-button);
+}
+
+.title > .icon {
+	max-height: 0.8em;
+	margin: 1.3em 0.4em;
+}
+
+.title > p {
+	font-weight: bold;
 }
 
 /* Options */
+
+.options {
+	display: flex;
+	/* background-color: red; */
+}
 
 .options > .fleet_state {
 	/* display: flex; */
 }
 
-.short_input {
+.options > .fleet_state_text {
+	margin-top: 0.5em;
+	padding: 0.2em;
+}
+
+.options > .fleet_state > .short_input {
 	background-color: transparent;
 	border: 1px solid var(--background-color-button);
 	border-radius: 8px;
@@ -21,25 +44,35 @@
 	padding: 0.5em;
 	width: 7em;
 }
-.short_input:focus {
+.options > .fleet_state > .short_input:focus {
 	border: 1px solid var(--primary-color);
 }
-
-.short_input::-webkit-outer-spin-button,
-.short_input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.options > .fleet_state > .short_input::-webkit-outer-spin-button,
+.options > .fleet_state > .short_input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
-.short_input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.fleet_state_text {
-	padding: 0 0.2em;
+.options > .fleet_state > .short_input[type="number"] {
+	-moz-appearance: textfield;
 }
 
-.checkbox {
+.options > .fleet_state > .checkbox {
 	margin-left: 1em;
+	margin-top: 1.2em;
+}
+
+/* Color range */
+.options > .color_range {
+	height: 1.6em;
+	width: 100%;
+	display: flex;
+}
+.options > .color_range > .color_box {
+	height: 100%;
+}
+.options > .color_range > .color_box > p {
+	text-align: center;
+	margin-top: 0.05em;
 }
 
 /* Data rows */
