@@ -3,9 +3,6 @@ import React, { useEffect, useState } from "react"
 import Layout from "../components/Layout"
 import Map from "../components/Map"
 import Sidebar from "../components/Sidebar"
-import eventsLocationBased from "../public/eventsLocationBased.json"
-import snapshotInfo from "../public/snapshotInfo.json"
-import planetLocsFleetStates from "../public/planetLocsFleetStates.json"
 import parseEvents from "../components/events"
 
 const Index = () => {
@@ -15,9 +12,29 @@ const Index = () => {
 		useState<boolean>(false)
 	const [events, setEvents] = useState([])
 
+	const [snapshotInfo, setSnapshotInfo] = useState(undefined)
+
 	useEffect(() => {
-		const events = parseEvents(eventsLocationBased, planetLocsFleetStates)
-		setEvents(events)
+		const fetchData = async () => {
+			const snapshotInfoRaw = await fetch(
+				"https://s3.amazonaws.com/static.simiotics.com/conquest-eth/snapshotInfo.json"
+			)
+			setSnapshotInfo(await snapshotInfoRaw.json())
+
+			const eventsLocationBasedRaw = await fetch(
+				"https://s3.amazonaws.com/static.simiotics.com/conquest-eth/eventsLocationBased.json"
+			)
+			const planetLocsFleetStatesRaw = await fetch(
+				"https://s3.amazonaws.com/static.simiotics.com/conquest-eth/planetLocsFleetStates.json"
+			)
+			const parsedEvents = parseEvents(
+				await eventsLocationBasedRaw.json(),
+				await planetLocsFleetStatesRaw.json()
+			)
+			setEvents(parsedEvents)
+		}
+
+		fetchData().catch(() => {})
 	}, [])
 
 	return (
@@ -43,9 +60,3 @@ const Index = () => {
 }
 
 export default Index
-
-// export async function getStaticProps() {
-// 	return {
-// 		props: { eventsLocationBased, snapshotInfo, planetLocsFleetStates }
-// 	}
-// }
