@@ -8,11 +8,7 @@ import snapshotInfo from "../public/snapshotInfo.json"
 import planetLocsFleetStates from "../public/planetLocsFleetStates.json"
 import parseEvents from "../components/events"
 
-const Index = ({
-	eventsLocationBased,
-	snapshotInfo,
-	planetLocsFleetStates
-}) => {
+const Index = () => {
 	const [activeLocation, setActiveLocation] = useState(null)
 	const [fleetLimitState, setFleetLimitState] = useState<number>(8200100)
 	const [fleetLimitStateHideZero, setFleetLimitStateHideZero] =
@@ -48,8 +44,8 @@ const Index = ({
 
 export default Index
 
-export async function getStaticProps() {
-	return {
-		props: { eventsLocationBased, snapshotInfo, planetLocsFleetStates }
-	}
-}
+// export async function getStaticProps() {
+// 	return {
+// 		props: { eventsLocationBased, snapshotInfo, planetLocsFleetStates }
+// 	}
+// }

@@ -16,7 +16,7 @@ interface Event {
 }
 
 // Convert data from json in event structure
-const parseEvents = (data: any[], planetLocsFleetStates: any[]): Event[] => {
+const parseEvents = (data, planetLocsFleetStates): Event[] => {
 	let events: Event[] = []
 
 	Object.keys(data).forEach((loc) => {
