@@ -45,9 +45,11 @@ const Sidebar = ({
 	return (
 		<div className={styles.sidebar}>
 			<div className={styles.title}>
-				<p>Options</p>
+				<img className={styles.icon} src="icon-filter.png" alt="Filter icon" /> 
+				<p>Fleet Filters</p>
 			</div>
 			<div className={styles.options}>
+				<span className={styles.fleet_state_text}>Fleet state on planet ≤</span>
 				<div className={styles.fleet_state}>
 					<input
 						className={styles.short_input}
@@ -57,7 +59,11 @@ const Sidebar = ({
 							setFleetLimitState(parseInt(e.target.value))
 						}
 					/>
-					<span className={styles.fleet_state_text}>fleet state</span>
+				</div>
+			</div>
+			<div className={styles.options}>
+				<span className={styles.fleet_state_text}>Hide empty fleet state</span>
+				<div className={styles.fleet_state}>
 					<input
 						className={styles.checkbox}
 						type="checkbox"
@@ -68,12 +74,13 @@ const Sidebar = ({
 				</div>
 			</div>
 			<div className={styles.title}>
-				<p>Events</p>
+				<img className={styles.icon} src="icon-data.png" alt="Data icon" /> 
+				<p>List of events</p>
 			</div>
 			<div
 				className={styles.data}
 				style={{
-					maxHeight: windowHeight ? windowHeight - 240 : "200px"
+					maxHeight: windowHeight ? windowHeight - 340 : "200px"
 				}}
 			>
 				{dataList.filter((el) => {
