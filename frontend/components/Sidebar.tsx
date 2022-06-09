@@ -74,7 +74,7 @@ const Sidebar = ({
 			</div>
 			<div className={styles.options}>
 				<span className={styles.fleet_state_text}>
-					Fleet state on planet ≤
+					Fleet state on the planet ≤
 				</span>
 				<div className={styles.fleet_state}>
 					<input
