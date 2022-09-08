@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": [
+      "es6",
+      "dom",
+      "dom.iterable"
+    ],
+    "outDir": "./lib",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+  },
+  "exclude": [
+    "node_modules",
+    "./tests/",
+    "./lib/"
+  ]
+}

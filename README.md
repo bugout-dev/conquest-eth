@@ -1,2 +1,3 @@
 # conquest-eth
-Conquest.eth data analysis plugin
+
+Conquest.eth data analysis and bots
